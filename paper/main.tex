@@ -1,0 +1,111 @@
+\documentclass[conference]{IEEEtran}
+
+\makeatletter
+\def\ps@IEEEtitlepagestyle{%
+  \def\@oddfoot{\mycopyrightnotice}%
+  \def\@evenfoot{}%
+}
+\def\mycopyrightnotice{%
+  {\footnotesize XXX-X-XXXX-XXXX-X/XX/\$XX.00~\copyright~20XX IEEE\hfill}%
+  \gdef\mycopyrightnotice{}%
+}
+\makeatother
+
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand\AtPageUpperMyright[1]{\AtPageUpperLeft{%
+ \put(\LenToUnit{0.17\paperwidth},\LenToUnit{-2cm}){%
+     \parbox{0.9\textwidth}{\raggedleft\fontsize{8}{11}\selectfont #1}}%
+ }}%
+\newcommand{\conf}[1]{%
+\AddToShipoutPictureBG*{%
+\AtPageUpperMyright{#1}%
+}%
+}
+
+\begin{document}
+
+\title{\vspace{1cm} Simulating Brazilian Public Opinion with Large Language Models: Distributional Evaluation and Prompt Engineering}
+
+\author{
+\IEEEauthorblockN{1\textsuperscript{st} Lucas Nascimento Aguiar}
+\IEEEauthorblockA{\textit{Graduate Program in Applied Computing} \\
+\textit{Mackenzie Presbyterian University (UPM)}\\
+São Paulo, Brazil \\
+lucas.naguiar@outlook.com.br}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Matheus dos Santos Moreira}
+\IEEEauthorblockA{\textit{Graduate Program in Applied Computing} \\
+\textit{Mackenzie Presbyterian University (UPM)}\\
+São Paulo, Brazil \\
+matheusmoreira2004@live.com}
+\and[\hfill\mbox{}\par\mbox{}\hfill]
+\IEEEauthorblockN{3\textsuperscript{rd} Rogério De Oliveira}
+\IEEEauthorblockA{\textit{Computing and Informatics} \\
+\textit{Mackenzie Presbyterian University (UPM)}\\
+São Paulo, Brazil \\
+rogerio.oliveira@{mackenzie,maua}.br}
+}
+
+\maketitle
+\conf{\textit{Proc. of International Conference on Artificial Intelligence, Computer, Data Sciences and Applications (ACDSA 2027) \\ 
+2-4 February 2027, Rio de Janeiro-Brazil}}
+
+\begin{abstract}
+Simulating public opinion using Large Language Models (silicon sampling)
+offers a scalable alternative to traditional polling, yet Global South
+contexts remain severely understudied. In this paper, we evaluate whether
+Brazilian Portuguese-centric models and global baselines can reproduce
+empirical public opinion distributions in Brazil. Grounded in official census
+microdata (IBGE) and benchmarked against an empirical survey on Brazilian
+perceptions of democracy, we evaluate distributional alignment via
+Jensen-Shannon Divergence (JSD). Cumulative prompt engineering --- integrating
+feature selection, Chain-of-Thought reasoning, and in-context calibration ---
+substantially reduced distributional divergence, achieving optimal alignment
+($\text{JSD} < 0.15$). Furthermore, Brazilian models demonstrated superior
+sociocultural fidelity by better capturing local civic skepticism compared to
+global baselines.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Public opinion simulation, large language models, silicon sampling, prompt
+engineering, Jensen-Shannon divergence, explainable artificial intelligence.
+\end{IEEEkeywords}
+
+\section{Introduction}\label{sec:introduction}
+\input{sections/introduction}
+
+\section{Theoretical Foundation and Related Work}\label{sec:related_work}
+\input{sections/related_work}
+
+\section{Experimental Methodology}\label{sec:methodology}
+\input{sections/methodology}
+
+\section{Results and Discussion}\label{sec:results}
+\input{sections/results}
+
+\section{Conclusions and Future Work}\label{sec:conclusion}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,references}
+
+\end{document}

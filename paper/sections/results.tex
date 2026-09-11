@@ -1,0 +1,161 @@
+\subsection{Distributional Evolution via Prompt Engineering}
+\label{subsec:resultados_prompts}
+
+Table~\ref{tab:resultados_prompts} presents the evolution of the
+Jensen-Shannon Divergence (JSD) across the four experimental scenarios for
+question P02 (Policy Priorities), utilizing the Sabiazinho-4 model.
+
+\begin{table}[htbp]
+    \centering
+    \caption{JSD evolution across experimental scenarios (P02~--- Policy
+        Priorities, Sabiazinho-4 model).}
+    \label{tab:resultados_prompts}
+    \begin{tabular}{@{}llcc@{}}
+        \toprule
+        \textbf{Scenario} & \textbf{Applied Technique} & \textbf{JSD} & \textbf{$\Delta$JSD} \\
+        \midrule
+        \textit{Baseline} & Raw \textit{prompt} (13 attributes) & 0.525 & --- \\
+        Scenario 1 & Feature selection (7 attr.) & 0.366 & $-0.159$ \\
+        Scenario 2 & Natural prose \textit{prompt} & 0.366 & $0.000$ \\
+        Scenario 3 & \textit{System/User} + CoT & 0.297 & $-0.069$ \\
+        Scenario 4 & \textit{Few-shot} (3 personas) & 0.121 & $\mathbf{-0.176}$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+We observed an overall reduction of 77\% in JSD between the
+\textit{baseline} ($0.525$) and the best experimental scenario ($0.121$), as
+illustrated in Figure~\ref{fig:evolucao_jsd}. Feature selection (Scenario~1)
+produced an immediate and substantial improvement ($\Delta\text{JSD} = -0.159$),
+indicating that eliminating informational noise helps the model anchor its
+decisions on the most decisive variables. Natural prose reformatting
+(Scenario~2) maintained the identical JSD value, suggesting that textual syntax
+alone does not alter the output probability distribution. Conversely, the Chain
+of Thought reasoning (Scenario~3) promoted a significant incremental gain
+($\Delta\text{JSD} = -0.069$). Finally, introducing calibration examples
+(\textit{few-shot}, Scenario~4) allowed the simulation to surpass the target
+threshold of distributional convergence ($\text{JSD} < 0.15$), reaching
+$0.121$.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\columnwidth}{!}{%
+        \input{figures/fig_evolucao_jsd.tikz.tex}%
+    }
+    \caption{JSD evolution across prompt engineering scenarios (P02,
+        Sabiazinho-4), demonstrating a 77\% reduction from baseline to
+        Scenario~4 (few-shot).}
+    \label{fig:evolucao_jsd}
+\end{figure}
+
+\subsection{Systematic Benchmark: Brazilian Portuguese-Centric vs. Global Models}
+\label{subsec:resultados_modelos}
+
+Table~\ref{tab:resultados_modelos} summarizes the comparative performance of
+the four evaluated models (Sabiá-4, Sabiazinho-4, GPT-5-mini, and
+LLaMA~3.2~3B) across the three target questions (P02, P03, and P04).
+
+\begin{table}[htbp]
+    \centering
+    \begin{threeparttable}
+        \caption{Comparative performance of models across questions using JSD.}
+        \label{tab:resultados_modelos}
+        \setlength{\tabcolsep}{6pt}
+        \begin{tabular}{@{}llc@{}}
+            \toprule
+            \textbf{Question} & \textbf{Model} & \textbf{JSD ($\downarrow$)} \\
+            \midrule
+            \multirow{4}{*}{\shortstack[l]{P02: Policy\\Priorities}}
+                & Sabiá-4 & 0.7238 \\
+                & Sabiazinho-4 & 0.5664 \\
+                & GPT-5-mini & 0.6185 \\
+                & LLaMA~3.2~3B & \textbf{0.4882} \\
+            \midrule
+            \multirow{4}{*}{\shortstack[l]{P03: Fake\\News}}
+                & Sabiá-4 & 0.6846 \\
+                & Sabiazinho-4 & \textbf{0.5452} \\
+                & GPT-5-mini & 0.5908 \\
+                & LLaMA~3.2~3B & 0.5912 \\
+            \midrule
+            \multirow{4}{*}{\shortstack[l]{P04: Political\\Participation}}
+                & Sabiá-4 & 0.3007 \\
+                & Sabiazinho-4 & \textbf{0.2097} \\
+                & GPT-5-mini & 0.8263 \\
+                & LLaMA~3.2~3B & 0.8100 \\
+            \midrule
+            \multirow{4}{*}{\shortstack[l]{Mean JSD\\($\overline{\text{JSD}}$)}}
+                & Sabiazinho-4 & \textbf{0.4404} \\
+                & Sabiá-4 & 0.5697 \\
+                & LLaMA~3.2~3B & 0.6298 \\
+                & GPT-5-mini & 0.6785 \\
+            \midrule
+            \multicolumn{2}{@{}l}{\textbf{Overall Mean $\pm$ SD}} & \textbf{0.5796 $\pm$ 0.1839} \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+            \footnotesize
+            \item \textit{Note:} $\downarrow$ indicates that lower values denote
+                closer alignment to the real CESOP distribution (JSD). Bold indicates best performance per question and overall mean.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+The aggregated comparative analysis reveals that Sabiazinho-4 achieved
+the best average distributional adherence ($\overline{\text{JSD}} = 0.4404$),
+followed by Sabiá-4 ($\overline{\text{JSD}} = 0.5697$),
+LLaMA~3.2~3B ($\overline{\text{JSD}} = 0.6298$), and
+GPT-5-mini ($\overline{\text{JSD}} = 0.6785$).
+
+Analyzing results across individual questions (Table~\ref{tab:resultados_modelos}) demonstrates
+that simulation accuracy is strongly conditioned by thematic domain characteristics.
+On the one hand, Question P04 (Political Participation) revealed the most pronounced
+polarization between model families: Brazilian architectures exhibited high empirical
+alignment ($\text{JSD} = 0.2097$ for Sabiazinho-4 and $0.3007$ for Sabiá-4), whereas
+global baselines failed substantially ($\text{JSD} = 0.8263$ for GPT-5-mini and
+$0.8100$ for LLaMA~3.2~3B) due to acute social desirability bias. On the other hand,
+Questions P02 and P03 (Policy Priorities and Fake News) showed moderate dispersion
+across all models ($\text{JSD}$ between $0.48$ and $0.72$), reflecting their larger
+combinatorial choice spaces (14 and 8 alternatives) and underlying socioeconomic
+complexity.
+
+Regarding cross-consistency across questions and models, Sabiazinho-4
+maintained superior stability across all thematic dimensions, avoiding the
+severe degradation peaks observed in globally aligned models
+(Table~\ref{tab:resultados_modelos}).
+
+\subsection{Sociocultural Biases, Explainability Auditing, and Methodological Trade-offs}
+\label{subsec:discussao_qualitativa}
+
+Detailed inspection of simulated distributions revealed systematic bias
+patterns conditioned by model origin and training alignment. Brazilian
+architectures (Sabiá-4 and Sabiazinho-4) demonstrated appropriate sensitivity to
+the civic skepticism of the Brazilian electorate in P04, accurately capturing
+the substantial proportion of respondents expressing little or no desire to
+participate in municipal politics. However, in P02, they exhibited a tendency to
+over-prioritize healthcare quality, occasionally assigning it to higher-income
+personas holding private health insurance. Conversely, global models (GPT-5-mini
+and LLaMA~3.2~3B) displayed pronounced social desirability and institutional
+optimism biases: in P04, GPT-5-mini attributed positive participation desire to
+over 98\% of synthetic personas, failing to reproduce documented political
+alienation, while responses in P02 heavily concentrated on job creation in a
+standard corporate/institutional style.
+
+Incorporating intermediate reasoning (Chain-of-Thought) in Scenario~3 enabled
+qualitative auditing of persona decision processes, resolving the opacity
+inherent in unreasoned prompts. Qualitative inspection of explanatory rationales
+unveiled two primary phenomena. First, genuine demographic alignment occurred
+when models anchored decisions at the intersection of income, education, and
+geography (for instance, lower-income, less-educated personas articulating civic
+disengagement due to perceived institutional corruption and distance). Second,
+persona dissonance emerged when models conflated simulated profiles with generic
+knowledge (such as affluent personas holding private coverage selecting public
+healthcare improvements due to broader societal perceptions of health system
+precarity). This transparency establishes XAI not merely as a \textit{post hoc}
+validation tool, but as an active diagnostic instrument for auditing behavioral
+coherence in synthetic populations.
+
+Finally, while Scenario~4 attained optimal distributional convergence ($\text{JSD} =
+0.121$), introducing manual calibration examples entails an essential
+methodological trade-off: in-context demonstrations serve as potent
+distributional anchors, requiring balanced selection to prevent steering models
+toward researcher priors.

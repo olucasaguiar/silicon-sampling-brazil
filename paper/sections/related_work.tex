@@ -1,0 +1,35 @@
+The simulation of human attitudes through Large Language Models (LLMs) has
+established a new paradigm in computational social science, termed
+\textit{silicon sampling}~\cite{argyle_out_2023,filippas_large_2024}. Autoregressive
+models encode latent socio-behavioral priors capable of reproducing collective
+demographic viewpoints~\cite{argyle_out_2023,grossmann_ai_2023}, outperforming
+classical classifiers in aggregate opinion alignment~\cite{miranda_simulating_2025}.
+However, commercial foundation models disproportionately reflect educated, affluent,
+and progressive Western strata~\cite{santurkar_whose_2023,bisbee_synthetic_2024},
+underrepresenting Global South viewpoints~\cite{durmus_towards_2023} and
+exhibiting persistent Anglo-American cultural skews in social and political value
+judgments~\cite{hartmann_political_2023,masoud_cultural_2023,johnson_ghost_2022}.
+Consequently, faithful simulation in non-WEIRD contexts requires culturally
+grounded personas, structured prompt engineering, and empirical calibration.
+
+Bridging demographic profiles with faithful decision-making demands disciplined
+prompt design. While LLM execution can be conceptualized as persona role-play
+over a generative distribution~\cite{shanahan_role_2023}, unconstrained persona
+assignment risks caricaturization and stereotyping~\cite{deshpande_toxicity_2023,salewski_-context_2023}.
+Grounding synthetic personas in official census microdata provides essential
+empirical anchor points. To structure deliberative choices, Chain-of-Thought (CoT)
+prompting elicits latent reasoning trajectories by producing intermediate tokens
+prior to emitting final responses~\cite{wei_chain--thought_2022,kojima_large_2022},
+reducing stochastic variance in multi-alternative opinion spaces~\cite{wang_self-consistency_2022}.
+Furthermore, introducing contrasting calibration personas via few-shot examples
+stabilizes response distributions against in-context recency and label
+biases~\cite{brown_language_2020,zhao_calibrate_2021}.
+
+Finally, to audit black-box agent behavior and verify persona consistency,
+generative simulation incorporates principles of Explainable Artificial Intelligence
+(XAI)~\cite{ribeiro_why_2016,guidotti_survey_2019}. Rather than treating models
+as opaque predictors, qualitative inspection of intermediate reasoning
+trajectories enables researchers to verify demographic semantic coherence,
+detect persona cognitive dissonance, and explain divergent behavioral priors
+between Brazilian Portuguese-centric and global baseline models.
+

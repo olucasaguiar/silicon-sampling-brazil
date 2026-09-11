@@ -1,0 +1,49 @@
+\begin{tikzpicture}[
+    font=\sffamily\scriptsize,
+    xscale=1.5,
+    yscale=3.0,
+    bar/.style={draw=black!85, line width=0.5pt},
+    refline/.style={dashed, draw=black!60, line width=0.5pt},
+    label/.style={font=\tiny\bfseries}
+]
+
+    % --- Y-axis grid ---
+    \foreach \y in {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6} {
+        \draw[black!15, line width=0.4pt] (-0.3, \y) -- (4.5, \y);
+        \node[left, font=\tiny, text=black!75] at (-0.3, \y) {\pgfmathprintnumber[fixed,precision=1]{\y}};
+    }
+    \draw[black!85, line width=0.6pt] (-0.3,0) -- (4.5,0);
+    \draw[black!85, line width=0.6pt] (-0.3,0) -- (-0.3,0.65);
+    \node[rotate=90, font=\scriptsize\bfseries, text=black!85] at (-0.75, 0.30) {JSD ($\downarrow$ better)};
+
+    % --- Reference line ---
+    \draw[refline] (-0.3, 0.15) -- (4.5, 0.15);
+    \node[right, font=\tiny\itshape, text=black!70] at (4.5, 0.15) {JSD = 0.15};
+
+    % --- Scenario bars ---
+    \filldraw[bar, fill=black!75] (-0.25, 0) rectangle (0.25, 0.525);
+    \node[above, label] at (0, 0.525) {0.525};
+    \node[below, font=\tiny, align=center] at (0, -0.02) {Baseline\\(13 attrs.)};
+
+    \filldraw[bar, fill=black!55] (0.75, 0) rectangle (1.25, 0.366);
+    \node[above, label] at (1.0, 0.366) {0.366};
+    \node[font=\tiny\bfseries, text=white] at (1.0, 0.183) {$\Delta -0.159$};
+    \node[below, font=\tiny, align=center] at (1.0, -0.02) {C1: feature\\selection\\(7 attrs.)};
+
+    \filldraw[bar, fill=black!55] (1.75, 0) rectangle (2.25, 0.366);
+    \node[above, label] at (2.0, 0.366) {0.366};
+    \node[below, font=\tiny, align=center] at (2.0, -0.02) {C2: natural\\prose};
+
+    \filldraw[bar, fill=black!35] (2.75, 0) rectangle (3.25, 0.297);
+    \node[above, label] at (3.0, 0.297) {0.297};
+    \node[font=\tiny\bfseries, text=white] at (3.0, 0.148) {$\Delta -0.069$};
+    \node[below, font=\tiny, align=center] at (3.0, -0.02) {C3: system/user\\+ CoT};
+
+    \filldraw[bar, fill=black!15] (3.75, 0) rectangle (4.25, 0.121);
+    \node[above, label, fill=white, inner sep=0.8pt] at (4.0, 0.121) {0.121};
+    \node[font=\tiny\bfseries, text=black!90] at (4.0, 0.055) {$\Delta -0.176$};
+    \node[below, font=\tiny, align=center] at (4.0, -0.02) {C4: few-shot\\(3 personas)};
+
+    % --- Global reduction ---
+    \draw[->, >=Stealth, line width=0.8pt, draw=black!90] (0.0, 0.55) to[out=18, in=162] node[above=1pt, font=\scriptsize\bfseries, fill=white, inner sep=1pt] {$-77\%$} (4.0, 0.15);
+\end{tikzpicture}

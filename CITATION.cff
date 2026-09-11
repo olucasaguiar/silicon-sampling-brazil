@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+type: software
+title: "silicon-sampling-brazil"
+abstract: >
+  Replication code, prompt templates, and evaluation pipelines for
+  "Simulating Brazilian Public Opinion with Large Language Models:
+  Distributional Evaluation and Prompt Engineering"
+  (IEEE ACDSA 2027).
+authors:
+  - family-names: "Aguiar"
+    given-names: "Lucas Nascimento"
+    email: "lucas.naguiar@outlook.com.br"
+    affiliation: "Universidade Presbiteriana Mackenzie"
+  - family-names: "Moreira"
+    given-names: "Matheus dos Santos"
+    email: "matheusmoreira2004@live.com"
+    affiliation: "Universidade Presbiteriana Mackenzie"
+  - family-names: "de Oliveira"
+    given-names: "Rogério"
+    email: "rogerio.oliveira@{mackenzie,maua}.br"
+    affiliation: "Universidade Presbiteriana Mackenzie"
+version: "1.0.0"
+date-released: "2027-02-04"
+url: "https://github.com/olucasaguiar/silicon-sampling-brazil"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "Simulating Brazilian Public Opinion with Large Language Models: Distributional Evaluation and Prompt Engineering"
+  authors:
+    - family-names: "Aguiar"
+      given-names: "Lucas Nascimento"
+    - family-names: "Moreira"
+      given-names: "Matheus dos Santos"
+    - family-names: "de Oliveira"
+      given-names: "Rogério"
+  collection-title: "Proc. of International Conference on Artificial Intelligence, Computer, Data Sciences and Applications (ACDSA 2027)"
+  year: 2027
+  publisher:
+    name: "IEEE"
+  location:
+    name: "Rio de Janeiro, Brazil"
+  start: 1
+  end: 6

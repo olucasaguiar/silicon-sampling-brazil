@@ -1,0 +1,57 @@
+Public opinion polling constitutes a fundamental instrument for understanding
+sociopolitical demands, formulating public policies, and analyzing electoral
+behavior. However, traditional field survey methods face increasing logistical
+and operational challenges, including high financial costs, lengthy data
+collection periods, and declining response rates. In this context, the rapid
+advancement of Large Language Models (LLMs) enabled the emergence of
+computational approaches directed toward human behavior simulation and synthetic
+sampling (\textit{silicon sampling})~\cite{argyle_out_2023}. When conditioned on
+sociodemographic attributes, such models exhibit the capacity to emulate
+population attitudes and preferences at scale and on demand.
+
+Seminal studies demonstrated that LLMs conditioned on sociodemographic profiles
+can reproduce public opinion distributions with remarkable fidelity against real
+empirical data~\cite{argyle_out_2023,miranda_simulating_2025}. Nevertheless, the
+vast majority of existing literature focuses on North American or European
+populations and on models predominantly trained in the English language. A
+significant research gap remains regarding the applicability and
+transferability of these methodologies to the Brazilian sociocultural context,
+as well as the comparative efficacy between general-purpose global models and
+models trained with an emphasis on Brazilian sociocultural and political reality.
+
+In this paper, we investigate the ability of Brazilian Portuguese-centric
+models against widely adopted global baselines to reproduce empirical public
+opinion distributions in Brazil. We construct a
+synthetic population comprising 2,000 personas derived from official microdata
+provided by the Brazilian Institute of Geography and Statistics (IBGE),
+covering demographic, economic, health, and social variables. We adopt the
+survey on Brazilian perceptions of democracy conducted by the Center for Public
+Opinion Research (CESOP --- \textit{Centro de Estudos de Opinião Pública da
+Universidade Estadual de Campinas}) and IPEC~\cite{cesop04832} as the empirical
+ground truth. We evaluate the distributional
+alignment of the simulated responses using the Jensen-Shannon Divergence
+(JSD)~\cite{lin_divergence_1991}.
+
+Our primary contributions are threefold: first, we analyze an experimental
+progression of four prompt engineering strategies, demonstrating that combining
+feature selection, system/user role separation, Chain of Thought (CoT),
+and few-shot calibration reduces JSD divergence by 77\% (from $0.525$ to $0.121$)
+to achieve optimal distributional convergence; second, we conduct a systematic
+architectural benchmark comparing Brazilian Portuguese-centric models
+(Sabiá-4 and Sabiazinho-4) with global baselines (GPT-5-mini and LLaMA~3.2~3B),
+revealing that models tailored to the Brazilian reality capture civic skepticism
+with higher fidelity, whereas global models exhibit marked social desirability
+and institutional optimism biases; and third, we demonstrate the utility of
+Explainable Artificial Intelligence (XAI) by employing model-generated
+justifications to audit persona reasoning consistency and detect cognitive
+dissonances during simulation.\footnote{Replication code, prompt templates,
+and evaluation pipelines are available at
+\url{https://github.com/olucasaguiar/silicon-sampling-brazil}.}
+
+The remainder of this paper is organized as follows: Section~\ref{sec:related_work}
+reviews the theoretical foundation and related work; Section~\ref{sec:methodology}
+details the experimental methodology, synthetic sampling procedures, and prompt
+engineering scenarios; Section~\ref{sec:results} presents the quantitative
+findings, bias analysis, and interpretability discussions; finally,
+Section~\ref{sec:conclusion} summarizes the conclusions and outlines directions
+for future research.

@@ -1,0 +1,65 @@
+\begin{tikzpicture}[
+    font=\sffamily\scriptsize,
+    >=Stealth,
+    baseBox/.style={
+        rectangle,
+        rounded corners=2.5pt,
+        draw=black!85,
+        line width=0.8pt,
+        align=center,
+        inner sep=4pt
+    },
+    dados/.style={baseBox, fill=gray!12, minimum width=3.5cm, minimum height=0.6cm},
+    personas/.style={baseBox, fill=gray!22, minimum width=7.3cm, minimum height=0.6cm},
+    scenario/.style={baseBox, fill=gray!8, minimum width=3.5cm, minimum height=0.6cm},
+    llm/.style={baseBox, fill=gray!18, minimum width=7.3cm, minimum height=0.6cm},
+    metrics/.style={baseBox, fill=gray!12, minimum width=7.3cm, minimum height=0.6cm},
+    seta/.style={->, line width=0.7pt, draw=black!85}
+]
+
+    % --- 1. Data sources ---
+    \node[dados] (ibge) {Sociodemographic data of\\the Brazilian population};
+    \node[dados, right=0.3cm of ibge] (cesop) {Survey of Brazilians'\\perceptions about democracy};
+
+    % --- 2. Synthetic personas ---
+    \node[personas, below=0.35cm of $(ibge.south)!0.5!(cesop.south)$, align=center] (personas) {
+        2,000 synthetic personas\\(13 sociodemographic attributes)
+    };
+
+    % --- 3. Prompt scenarios ---
+    \node[scenario, below=0.35cm of personas.south west, anchor=north west, align=center] (c1) {
+        C1: attribute selection\\(Essential demography)
+    };
+    \node[scenario, right=0.3cm of c1, align=center] (c2) {
+        C2: natural prose\\(Biographical narrative)
+    };
+    \node[scenario, below=0.35cm of c1, align=center] (c3) {
+        C3: system/user + CoT\\(Structure + reasoning)
+    };
+    \node[scenario, right=0.3cm of c3, align=center] (c4) {
+        C4: few-shot\\(3 personas for calibration)
+    };
+
+    % --- 4. Inference and metrics ---
+    \node[llm, below=0.4cm of $(c3.south)!0.5!(c4.south)$, align=center] (llms) {
+        LLM inference
+    };
+    \node[metrics, below=0.35cm of llms.south, align=center] (metrics) {
+        Evaluation metrics
+    };
+
+    % --- Connections ---
+    \draw[seta] (ibge.south) -- (personas.north -| ibge.south);
+    \draw[seta] (cesop.south) -- (personas.north -| cesop.south);
+
+    \draw[seta] (personas.south -| c1.north) -- (c1.north);
+    \draw[seta] (personas.south -| c2.north) -- (c2.north);
+
+    \draw[seta] (c1.south) -- (c3.north);
+    \draw[seta] (c2.south) -- (c4.north);
+
+    \draw[seta] (c3.south) |- ++(0, -0.15) -| (llms.north);
+    \draw[seta] (c4.south) |- ++(0, -0.15) -| (llms.north);
+
+    \draw[seta] (llms.south) -- (metrics.north);
+\end{tikzpicture}

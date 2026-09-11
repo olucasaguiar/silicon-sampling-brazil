@@ -1,0 +1,214 @@
+\begin{figure}[htbp]
+    \centering
+    \input{figures/fig_pipeline.tikz.tex}
+    \caption{Methodological pipeline diagram, illustrating the experimental
+        progression across prompt engineering stages.}
+    \label{fig:pipeline}
+\end{figure}
+
+We structured the experimental investigation into two sequential and
+complementary phases. Phase~1 evaluated the cumulative impact of four
+prompt engineering strategies on distributional convergence, using a single
+high-cardinality anchor question (P02) to isolate prompting effects.
+Building upon the optimal prompt configuration identified in the first stage,
+Phase~2 conducted an architectural benchmark comparing Brazilian
+Portuguese-centric models against general-purpose global baselines across three
+distinct thematic dimensions (P02, P03, and P04) to assess sociocultural fidelity
+and generalization. The subsequent subsections detail the empirical reference
+data, the synthetic population generation, the evaluated architectures, and
+the experimental prompt scenarios.
+
+\subsection{Empirical Reference Survey: Perceptions of Democracy}
+\label{subsec:database}
+
+We adopted the public opinion survey ``Perceptions of Brazilians Regarding
+Democracy''~\cite{cesop04832} as our empirical ground truth. Fielded in September
+2023 by the Center for Public Opinion Research (CESOP/UNICAMP) in partnership
+with IPEC, the survey sampled 2,000 voting-age citizens across 127 Brazilian
+municipalities using a three-stage probabilistic cluster design with quota
+allocation based on official census indicators (margin of error of $\pm 2\%$ at a
+95\% confidence level).
+
+From the survey questionnaire, we selected three evaluative attitudinal
+questions for comparative evaluation: P02 (Policy Priorities: ``Which of
+these proposals do you think should be the priority of a politician?'',
+featuring 12 substantive response alternatives); P03 (Fake News
+Countermeasures: ``Which of these options do you believe could contribute to
+combating the spread of fake news?'', with 6 substantive alternatives on regulatory and
+institutional interventions); and P04 (Political Participation: ``Would you
+say that you have a strong desire, some desire, or no desire to participate in
+the political life of your city?'', offering 3 substantive alternatives measuring local civic
+engagement).
+
+Our selection includes all evaluative attitudinal items from the instrument,
+deliberately omitting item P01 due to its purely retrospective nature as an
+electoral recall check on 2022 voting behavior. This tripartite set provides
+thematic breadth, spanning material policy agendas, institutional responses
+to misinformation, and subjective civic disposition, while also varying in
+response structure. By varying response cardinality across $12$, $6$, and
+$3$ substantive categories, these questions allow us to evaluate JSD convergence under
+different levels of response entropy and potential social desirability effects.
+
+\subsection{Generation of the Synthetic Population Grounded in IBGE}
+\label{subsec:silicon_profiles}
+
+We generated 2,000 synthetic individual profiles using stratified
+probabilistic sampling based on official distributions from the IBGE (Brazilian
+Institute of Geography and Statistics), retrieved via the SIDRA
+API~\cite{ibge_sidra_api}. Each persona is characterized by up to 13 attributes
+spanning demographic, economic, and social dimensions, parameterized from the
+2022 Demographic Census~\cite{ibge_censo_2022} (gender, age bracket, race,
+region, zone, and religion), Continuous PNAD 2024~\cite{ibge_pnadc} (education,
+employment, and \textit{per capita} income), the National Health Survey (PNS
+2019)~\cite{ibge_pns_2019}, Civil Registry~\cite{ibge_registro_civil}, and
+IPCA inflation indicators~\cite{ibge_ipca}.
+
+Grounding the synthetic population directly in official IBGE microdata
+guarantees reproducible probabilistic sampling across Brazilian federative units
+and socioeconomic strata, ensuring the methodology remains transferable to
+scenarios where prior survey ground truth does not pre-exist.
+
+\subsection{Evaluated Large Language Model Architectures}
+\label{subsec:language_models}
+
+We compared four LLM architectures throughout our experiments, as summarized in
+Table~\ref{tab:modelos}.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Large Language Models evaluated in the study.}
+    \label{tab:modelos}
+    \begin{tabular}{@{}llll@{}}
+        \toprule
+        \textbf{Model} & \textbf{Provider} & \textbf{Type} & \textbf{Origin} \\
+        \midrule
+        Sabiá-4 & Maritaca AI & API & Brazilian \\
+        Sabiazinho-4 & Maritaca AI & API & Brazilian \\
+        GPT-5-mini & OpenAI & API & Global \\
+        LLaMA~3.2~3B & Meta & Local & Global \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The choice of Brazilian models (Sabiá-4 and Sabiazinho-4)
+was grounded in the hypothesis that models pre-trained with an emphasis on the
+Portuguese language and Brazilian sociocultural context could reproduce local
+public opinion with higher fidelity. We selected GPT-5-mini as a
+global baseline in the equivalent cost-performance tier, consistent with
+the technical benchmark released by Maritaca AI for the Sabiá
+architecture~\cite{abonizio_sabia-3_2024}.
+
+\subsection{Experimental Prompt Engineering Strategies}
+\label{subsec:cenarios}
+
+We executed a cumulative progression of four experimental scenarios applying
+incremental refinements to the prompt design strategy. In all scenarios, we
+utilized 2,000 synthetic personas and initially focused on question
+P02 (Policy Priorities). To mitigate the impact of probabilistic
+sampling during inference, we repeated each prompt execution five times and
+adopted the majority vote outcome for evaluation.
+
+\subsubsection{Scenario 1: Feature Selection}
+\label{subsubsec:cenario1}
+
+In the first scenario, we applied a feature selection technique by using the
+LLM itself to identify the most predictive variables among the
+13 original attributes for the question at hand. For P02,
+the model selected seven attributes: education,
+\textit{per capita} income, region, age bracket,
+self-rated health, gender, and marital status.
+
+We structured the prompt as a single user message, presenting the profile as a
+list within XML tags and requesting solely the letter corresponding to the
+chosen alternative:
+
+\begin{quote}
+    \small
+    \textit{``You must think and respond as a Brazilian citizen with the profile
+    below. [\ldots] Consider the socioeconomic and demographic conditions of the
+    profile to form your opinion on the question and respond with the letter of
+    the alternative that best represents your opinion. [\ldots] My answer is''}
+\end{quote}
+
+We set the temperature to 0.7 and \texttt{max\_tokens} to
+100, enforcing structured schema output (\texttt{response\_format}) to
+ensure automated extraction.
+
+\subsubsection{Scenario 2: Natural Prose Biographical Representation}
+\label{subsubsec:cenario2}
+
+As a natural evolution of the previous scenario, we utilized role-playing
+techniques to assess how the model interpreted the presented profile. We
+rephrased the prompt from a list of attributes into a natural language
+descriptive paragraph:
+
+\begin{quote}
+    \small
+    \textit{``Act as a Brazilian individual of gender [gender], from the [region]
+    region, aged between [age bracket], [marital status]. Your education level is
+    [education] and your individual income is [income]. Your self-rated health is
+    [health].''}
+\end{quote}
+
+The remaining parameters (temperature, response format, and model) were kept
+identical to Scenario~1.
+
+\subsubsection{Scenario 3: Structural Role Separation and Chain of Thought (CoT)}
+\label{subsubsec:cenario3}
+
+In this scenario, we introduced two complementary structural modifications.
+First, for \textit{role separation}, we allocated the persona profile and
+behavioral guidelines exclusively to the \textit{system prompt}, providing the
+question and alternatives in the \textit{user prompt}, reinforced by explicit
+instructions to prevent breaking character: \textit{``Your task is to answer
+public opinion questions exactly as this person would answer --- not as you
+believe is correct, nor as an expert would answer.''} Second, to implement
+\textit{Chain of Thought (CoT)}, we instructed the model to reflect briefly on how
+an individual with the described profile would experience the issues in daily life
+before selecting the final alternative, enforcing a structured response schema
+with two fields: \texttt{reasoning} and \texttt{answer}.
+
+We set the temperature to $0.9$ and adjusted \texttt{max\_tokens} to 200 to
+allow for intermediate reasoning generation. Additionally, we reintroduced all
+13 original profile attributes into the \textit{system prompt}.
+
+\subsubsection{Scenario 4: Contextual Few-Shot Calibration}
+\label{subsubsec:cenario4}
+
+In the final scenario, we maintained the system/user prompt structure from
+Scenario~3 and added three contrasting calibration personas as prior conversational
+turns (assistant/user) preceding the target question. Specifically, the calibration
+exemplars comprised: (1)~a young, low-income Black woman from the urban Northeast
+choosing \textit{``Combat prejudice''} (alternative~b); (2)~an older, rural White
+Evangelical man from the South choosing \textit{``Preserve family-oriented values''}
+(alternative~g); and (3)~a middle-aged, college-educated divorced woman from the
+urban Southeast choosing \textit{``Reduce social inequalities''} (alternative~a).
+
+We constructed these three examples from qualitative analysis of
+justifications generated by the LLM in previous runs (Scenario~3),
+reusing them across all 2,000 simulations. We configured the structured
+output to require three fields: \texttt{top\_concern} (primary daily concern),
+\texttt{why\_this\_answer} (perspective justification), and \texttt{answer}
+(alternative letter).
+
+We appended an instruction to the end of the system prompt to mitigate inherent
+training bias:
+
+\begin{quote}
+    \small
+    \textit{``ATTENTION: In the real Brazil, surveys show that different
+    Brazilians choose very different priorities. Prejudice, Inequality, Family
+    values, Education, and Political participation are equally legitimate and
+    frequent priorities. Health and Jobs are important to everyone, but they are
+    not automatically the answer for every persona.''}
+\end{quote}
+
+To evaluate distributional convergence between simulated distributions ($P$)
+and empirical CESOP targets ($Q$), response category counts were normalized to
+unit sum ($\sum p_i = \sum q_i = 1$) and evaluated using base-2 Jensen-Shannon
+Divergence (JSD)~\cite{lin_divergence_1991}. Bounded within $[0, 1]$ bit,
+$\text{JSD} = 0$ denotes identical distributions. In line with computational
+social simulation standards~\cite{miranda_simulating_2025}, we adopt $\text{JSD}
+< 0.15$ as the threshold indicating close distributional convergence, whereas
+values exceeding $0.50$ indicate severe empirical divergence.
+
