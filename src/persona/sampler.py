@@ -1,11 +1,12 @@
 import random
 from dataclasses import dataclass
+
 from .models import (
     DemographicProfile,
     EconomicProfile,
     HealthProfile,
-    SocialProfile,
     Persona,
+    SocialProfile,
 )
 
 

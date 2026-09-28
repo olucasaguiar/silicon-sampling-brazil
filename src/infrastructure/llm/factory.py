@@ -1,10 +1,10 @@
 from typing import Callable, Dict, Optional
 
-from .client_base import BaseLLMClient
-from .maritaca_adapter import MaritacaAdapter
-from .llama_adapter import LlamaAdapter
-
 from src.settings import settings
+
+from .client_base import BaseLLMClient
+from .llama_adapter import LlamaAdapter
+from .maritaca_adapter import MaritacaAdapter
 
 
 class LLMFactory:

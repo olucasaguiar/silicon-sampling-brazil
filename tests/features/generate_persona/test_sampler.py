@@ -1,6 +1,7 @@
 import pytest
-from src.persona.sampler import WeightedDistribution, PersonaSampler
+
 from src.persona.models import Persona
+from src.persona.sampler import PersonaSampler, WeightedDistribution
 
 
 def test_weighted_distribution_sampling():

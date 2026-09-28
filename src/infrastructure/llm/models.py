@@ -1,4 +1,5 @@
-from typing import Tuple, Literal
+from typing import Literal, Tuple
+
 from pydantic import BaseModel
 
 # Supported model identifiers

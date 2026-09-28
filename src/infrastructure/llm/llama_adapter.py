@@ -1,7 +1,7 @@
 import gc
-import os
 import json
 import logging
+import os
 import re
 from typing import Dict, List, Optional
 
@@ -91,7 +91,9 @@ class LlamaAdapter(BaseLLMClient):
         user_prompt = (
             f"{question}\n\n"
             f"Opções:\n{options_text}\n\n"
-            f"Responda fornecendo APENAS um JSON contendo as chaves 'answer' (a letra da alternativa escolhida para a sua resposta) e 'explanation' (justificativa do porquê, contendo no máximo 85 palavras)."
+            "Responda fornecendo APENAS um JSON contendo as chaves 'answer' (a letra da alternativa"
+            "escolhida para a sua resposta) e 'explanation' (justificativa do porquê, contendo no "
+            "máximo 85 palavras)."
         )
         chat_messages.append({"role": "user", "content": user_prompt})
         return chat_messages

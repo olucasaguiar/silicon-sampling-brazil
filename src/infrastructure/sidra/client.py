@@ -1,9 +1,11 @@
-import httpx
 from typing import List, Union
-from .models import SidraMetadata, SidraVariableResponse
-from .query_builder import SidraQueryBuilder
+
+import httpx
 
 from src.settings import settings
+
+from .models import SidraMetadata, SidraVariableResponse
+from .query_builder import SidraQueryBuilder
 
 
 class SidraClient:

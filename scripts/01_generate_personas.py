@@ -13,14 +13,13 @@ Usage:
 """
 
 import argparse
-import json
 import logging
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-from src.infrastructure.sidra import SidraClient
 from src.infrastructure.cache import DistributionCache
+from src.infrastructure.sidra import SidraClient
 from src.persona import generate_batch
 from src.settings import settings
 

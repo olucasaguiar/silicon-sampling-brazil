@@ -1,14 +1,14 @@
 from src.infrastructure.llm import BaseLLMClient
 from src.infrastructure.llm.models import ModelAnswer
 from src.persona.models import (
-    Persona,
     DemographicProfile,
     EconomicProfile,
-    SocialProfile,
     HealthProfile,
+    Persona,
+    SocialProfile,
 )
-from src.simulation.models import SimulationConfig, Survey, SurveyQuestion
 from src.simulation.handler import run_simulation
+from src.simulation.models import SimulationConfig, Survey, SurveyQuestion
 
 
 class MockClient(BaseLLMClient):

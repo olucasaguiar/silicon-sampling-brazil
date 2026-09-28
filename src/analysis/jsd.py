@@ -7,11 +7,12 @@ Provides:
 - normalize: Normalize a dictionary of counts to a probability vector.
 """
 
+from collections import defaultdict
+from typing import Dict, List
+
 import numpy as np
 from scipy.spatial.distance import jensenshannon
 from scipy.stats import chi2_contingency
-from collections import defaultdict
-from typing import Dict, List
 
 
 def compute_jsd(p: np.ndarray, q: np.ndarray) -> float:

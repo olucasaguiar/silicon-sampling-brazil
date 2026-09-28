@@ -1,5 +1,5 @@
-from src.settings import settings
 from src.infrastructure.sidra import SidraQueryBuilder, SidraVariableResponse
+from src.settings import settings
 
 
 def test_censo_race_query(sidra_client):

@@ -1,13 +1,14 @@
-from src.settings import settings
 from src.infrastructure.cache import DistributionCache
 from src.infrastructure.sidra import SidraClient, SidraQueryBuilder
+from src.settings import settings
+
 from ..exceptions import (
-    RaceDistributionError,
     GenderDistributionError,
-    RegionDistributionError,
-    UrbanRuralDistributionError,
-    ReligionDistributionError,
     IBGEDataError,
+    RaceDistributionError,
+    RegionDistributionError,
+    ReligionDistributionError,
+    UrbanRuralDistributionError,
 )
 from .utils import get_cached_or_fetch, safe_float
 

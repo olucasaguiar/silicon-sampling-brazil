@@ -1,9 +1,10 @@
 from src.infrastructure.cache import DistributionCache
 from src.infrastructure.sidra import SidraClient, SidraQueryBuilder
 from src.settings import settings
+
 from ..exceptions import (
-    HealthAssessmentDistributionError,
     ChronicDiseaseDistributionError,
+    HealthAssessmentDistributionError,
 )
 from .utils import get_cached_or_fetch, safe_float
 
@@ -56,7 +57,7 @@ def get_health_assessment_distribution(
             dist = {k: (v / total) * 100 for k, v in raw.items()}
             final_dist = {}
 
-            # Map the 3-point scale from PNS to the 5-point scale in our target schema using settings splits
+            # Maps the PNS 3-point scale to the 5-point target schema using configured split ratios.
             if "Muito bom e bom" in dist:
                 val = dist["Muito bom e bom"]
                 final_dist["Muito bom"] = val * splits.get("Muito bom", 0.35)

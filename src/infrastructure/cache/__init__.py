@@ -1,3 +1,3 @@
-from .distribution_cache import DistributionCache, CacheEntry
+from .distribution_cache import CacheEntry, DistributionCache
 
 __all__ = ["DistributionCache", "CacheEntry"]

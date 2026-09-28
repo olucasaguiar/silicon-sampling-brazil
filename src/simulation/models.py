@@ -1,7 +1,9 @@
 from typing import Dict, List
+
 from pydantic import BaseModel
-from src.persona.models import Persona
+
 from src.infrastructure.llm.models import ModelAnswer
+from src.persona.models import Persona
 
 
 class SurveyQuestion(BaseModel):

@@ -1,8 +1,8 @@
 """Tests for LLMFactory — covers the 4 models evaluated in the paper."""
 
 from src.infrastructure.llm import LLMFactory
-from src.infrastructure.llm.maritaca_adapter import MaritacaAdapter
 from src.infrastructure.llm.llama_adapter import LlamaAdapter
+from src.infrastructure.llm.maritaca_adapter import MaritacaAdapter
 
 
 def test_llm_factory_provide_maritaca_sabia4(monkeypatch):

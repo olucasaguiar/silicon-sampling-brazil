@@ -1,4 +1,4 @@
-from src.persona import generate_one, generate_batch
+from src.persona import generate_batch, generate_one
 from src.persona.models import Persona
 
 

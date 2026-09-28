@@ -1,6 +1,7 @@
 from src.infrastructure.cache import DistributionCache
 from src.infrastructure.sidra import SidraClient, SidraQueryBuilder
 from src.settings import settings
+
 from ..exceptions import InflationDataError
 from .utils import get_cached_or_fetch
 

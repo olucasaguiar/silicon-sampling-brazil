@@ -1,15 +1,16 @@
-from src.settings import settings
 from src.infrastructure.cache import DistributionCache
 from src.infrastructure.sidra import SidraClient
-from .sampler import WeightedDistribution, PersonaSampler
-from .models import Persona
+from src.settings import settings
+
 from .adapters import (
     censo_adapter,
-    pnad_adapter,
-    ipca_adapter,
-    pns_adapter,
     civil_adapter,
+    ipca_adapter,
+    pnad_adapter,
+    pns_adapter,
 )
+from .models import Persona
+from .sampler import PersonaSampler, WeightedDistribution
 
 
 class DistributionBuilder:

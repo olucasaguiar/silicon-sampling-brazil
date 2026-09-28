@@ -1,14 +1,15 @@
 import json
 import logging
-from typing import List, Dict, Any
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
+from typing import Any, Dict, List
 
-from src.persona.models import Persona
 from src.infrastructure.llm import LLMFactory
+from src.persona.models import Persona
+
 from .models import (
-    FormResults,
     FormResponse,
+    FormResults,
     PersonaSimulationResult,
     SimulationConfig,
 )

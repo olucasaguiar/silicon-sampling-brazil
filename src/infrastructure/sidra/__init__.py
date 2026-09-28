@@ -4,16 +4,16 @@ Documentaçao: https://servicodados.ibge.gov.br/api/docs/agregados?versao=3
 """
 
 from .client import SidraClient
-from .query_builder import SidraQueryBuilder
 from .models import (
-    SidraMetadata,
-    SidraVariableResponse,
-    SidraResultado,
-    SidraSerie,
     SidraClassificacao,
     SidraLocalidade,
+    SidraMetadata,
     SidraNivel,
+    SidraResultado,
+    SidraSerie,
+    SidraVariableResponse,
 )
+from .query_builder import SidraQueryBuilder
 
 __all__ = [
     "SidraClient",

@@ -1,12 +1,12 @@
+from .exceptions import IBGEDataError
 from .handler import generate_batch, generate_one
 from .models import (
     DemographicProfile,
     EconomicProfile,
     HealthProfile,
-    SocialProfile,
     Persona,
+    SocialProfile,
 )
-from .exceptions import IBGEDataError
 
 __all__ = [
     "Persona",

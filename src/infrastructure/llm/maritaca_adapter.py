@@ -1,14 +1,16 @@
-import os
 import json
+import logging
+import os
 import re
 import time
+from typing import Any, Dict, List
+
 import httpx
-import logging
-from typing import Dict, List, Any
+
+from src.settings import settings
 
 from .client_base import BaseLLMClient
 from .models import ModelAnswer
-from src.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +76,8 @@ class MaritacaAdapter(BaseLLMClient):
         user_prompt = (
             f"{question}\n\n"
             f"Opções:\n{options_text}\n\n"
-            f"O JSON deve ter as chaves 'answer' (apenas a letra da opção escolhida) e 'explanation' (resumo do porquê)."
+            "O JSON deve ter as chaves 'answer' (apenas a letra da opção escolhida)"
+            "e 'explanation' (resumo do porquê)."
         )
         chat_messages.append({"role": "user", "content": user_prompt})
         return chat_messages

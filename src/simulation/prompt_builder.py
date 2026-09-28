@@ -1,5 +1,4 @@
 from src.persona.models import Persona
-from .models import SurveyQuestion
 
 
 def build_persona_system_prompt(persona: Persona) -> str:
@@ -29,9 +28,9 @@ def build_persona_system_prompt(persona: Persona) -> str:
         f"- Religião: {social.religion}\n"
         f"- Autoavaliação de saúde: {health.health_self_assessment}\n\n"
         "Sua tarefa é responder a perguntas de opinião pública como se você fosse essa pessoa. "
-        "Considere as condições socioeconômicas e demográficas descritas para formar sua opinião, refletindo "
-        "o contexto real do Brasil. Não saia do personagem. Responda de forma sincera baseando-se nas experiências "
-        "prováveis de alguém com este exato perfil."
+        "Considere as condições socioeconômicas e demográficas descritas para formar sua opinião"
+        ", refletindo o contexto real do Brasil. Não saia do personagem. Responda de forma "
+        "sincera baseando-se nas experiências prováveis de alguém com este exato perfil."
     )
     # Note: The prompt body is intentionally in Brazilian Portuguese because the survey
     # questions are in Portuguese and the persona must reason within its cultural context.

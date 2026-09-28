@@ -24,9 +24,9 @@ from pathlib import Path
 import yaml
 from dotenv import load_dotenv
 
-from src.simulation.models import SimulationConfig, Survey, SurveyQuestion
-from src.simulation.handler import run_simulation
 from src.persona.models import Persona
+from src.simulation.handler import run_simulation
+from src.simulation.models import SimulationConfig, Survey, SurveyQuestion
 
 logging.basicConfig(
     level=logging.INFO,
