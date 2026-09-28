@@ -34,7 +34,7 @@ def test_run_simulation(monkeypatch):
     # Setup mock factory
     mock_client = MockClient("mock-model")
     monkeypatch.setattr(
-        "features.opinion_simulation.handler.LLMFactory.provide",
+        "src.infrastructure.llm.LLMFactory.provide",
         lambda self, model_id: mock_client,
     )
 
